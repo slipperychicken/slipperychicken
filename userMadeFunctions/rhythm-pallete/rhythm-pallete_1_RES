@@ -1,49 +1,5 @@
-;; Hello Chick Slippers! 
-;; Here are the functions I developed for my final Non-Real Time composition
-;; Please feel free to post yours
+;; rhythm-pallete_RES
 
-;;tempo algos
-
-(defun accel (startmm endmm starttempo endtempo rate) 
-  (loop for i from startmm to endmm by rate
-	for j from starttempo to endtempo 
-	by ( / ( - endtempo starttempo) ( / ( - endmm startmm) rate)) 
-	collect (list i (list `q j))))
-
-(defun deccel (startmm endmm starttempo endtempo rate) 
-  (loop for i from startmm to endmm by rate
-	for j from starttempo downto endtempo 
-	by ( / ( - starttempo endtempo) ( / ( - endmm startmm) rate)) 
-	collect (list i (list `q j))))
-
-;;set algos
-
-(defun split-scale (splitfactor starting-degree starting-octave end-octave)
-  (loop for data in
-	(loop for i from (+ (* 24 (+ 1 starting-octave)) starting-degree) 
-	      to (* 24 (+ 1 end-octave)) 
-	      by splitfactor collect (list i))
-	collect
-	(degree-to-note (first data) 'quarter-tone)))
-
-;;limit algos
-;; c-1 = 0 : c0 = 24 : c1 = 48 : c2 = 72 : c3 = 96 
-;; c4 = 120 : c5 = 144 : c6 = 168 : c7 = 192 : c8 = 216
-;; c9 = 240 : C10 264
-
-(defun limit-up (startmm endmm startlimit endlimit rate)
-  (loop for i from startmm to endmm by rate
-	for j from startlimit to endlimit 
-	      by ( / ( - endlimit startlimit) ( / ( - endmm startmm) rate))
-	      collect i collect (degree-to-note j 'quarter-tone)))
-
-(defun limit-down (startmm endmm startlimit endlimit rate)
-  (loop for i from startmm to endmm by rate
-	for j from startlimit downto endlimit 
-	      by ( / ( - startlimit endlimit) ( / ( - endmm startmm) rate))
-	      collect i collect (degree-to-note j 'quarter-tone)))
-
-;;;;;;;;;;Rhythm-pallete algos
 ;;RPMA = rhythm-pallete-melodic-ascending
 ;;Examp.  (RPMA 1 10 0 '((q) q q (q) q (e) e (q) q) '(8 4) 5 1 10 2 2)
 

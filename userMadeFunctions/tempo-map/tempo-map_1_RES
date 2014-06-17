@@ -1,0 +1,13 @@
+;; RES_tempo
+
+(defun accel (startmm endmm starttempo endtempo rate) 
+  (loop for i from startmm to endmm by rate
+	for j from starttempo to endtempo 
+	by ( / ( - endtempo starttempo) ( / ( - endmm startmm) rate)) 
+	collect (list i (list `q j))))
+
+(defun deccel (startmm endmm starttempo endtempo rate) 
+  (loop for i from startmm to endmm by rate
+	for j from starttempo downto endtempo 
+	by ( / ( - starttempo endtempo) ( / ( - endmm startmm) rate)) 
+	collect (list i (list `q j))))

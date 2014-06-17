@@ -1,0 +1,16 @@
+;; Limit_RES
+;; c-1 = 0 : c0 = 24 : c1 = 48 : c2 = 72 : c3 = 96 
+;; c4 = 120 : c5 = 144 : c6 = 168 : c7 = 192 : c8 = 216
+;; c9 = 240 : C10 264
+
+(defun limit-up (startmm endmm startlimit endlimit rate)
+  (loop for i from startmm to endmm by rate
+	for j from startlimit to endlimit 
+	      by ( / ( - endlimit startlimit) ( / ( - endmm startmm) rate))
+	      collect i collect (degree-to-note j 'quarter-tone)))
+
+(defun limit-down (startmm endmm startlimit endlimit rate)
+  (loop for i from startmm to endmm by rate
+	for j from startlimit downto endlimit 
+	      by ( / ( - startlimit endlimit) ( / ( - endmm startmm) rate))
+	      collect i collect (degree-to-note j 'quarter-tone)))
